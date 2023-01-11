@@ -17,40 +17,39 @@ namespace WebApplication1.Controllers.Tests
         [Fact()]
         public async Task GetTest()
         {
-            //var webApplicationFactory = new WebApplicationFactory<Program>();
-            //var client = webApplicationFactory.CreateClient();
-            //var result = await client.GetAsync("http://localhost/api/Values/");
+            //// Start the service 1 container
+            //ITestcontainersContainer container1 = new TestcontainersBuilder<TestcontainersContainer>()
+            //    .WithImage("service2:dev")
+            //    .WithPortBinding(80, true)
+            //    .WithExposedPort(80)
+            //    .WithPortBinding(5002, 80)
+            //    .Build();
+           
 
-            // Start the service 1 container
-            ITestcontainersContainer container1 = new TestcontainersBuilder<TestcontainersContainer>()
-                .WithImage("service2:dev")
-                .WithPortBinding(80, true)
-                .WithExposedPort(80)
-                .WithPortBinding(5002, 80)
-                .Build();
+            //await container1.StartAsync();
 
-            await container1.StartAsync();
+            //var _service1Container = new TestcontainersBuilder<TestcontainersContainer>()
+            //        .WithImage("service2:dev")
+            //        .WithPortBinding(80, true)
+            //        .WithExposedPort(80)
+            //        .WithPortBinding(5002, 80)
+            //        .Build();
+            //await _service1Container.StartAsync();
 
-            var _service1Container = new TestcontainersBuilder<TestcontainersContainer>()
-                    .WithImage("service2:dev")
-                    .WithPortBinding(80, true)
-                    .WithExposedPort(80)
-                    .WithPortBinding(5002, 80)
-                    .Build();
-            await _service1Container.StartAsync();
-
-            // Start the service 2 container
-            TestcontainersContainer _service2Container = new TestcontainersBuilder<TestcontainersContainer>()
-                    .WithImage("service3:dev")
-                    .WithPortBinding(80, true)
-                    .WithPortBinding(80)
-                    .WithExposedPort(5003)
-                    .Build();
-            _service2Container.StartAsync().GetAwaiter().GetResult();
+            //// Start the service 2 container
+            //TestcontainersContainer _service2Container = new TestcontainersBuilder<TestcontainersContainer>()
+            //        .WithImage("service3:dev")
+            //        .WithPortBinding(80, true)
+            //        .WithPortBinding(80)
+            //        .WithExposedPort(5003)
+            //        .Build();
+            //_service2Container.StartAsync().GetAwaiter().GetResult();
 
             var webApplicationFactory = new WebApplicationFactory<Program>();
             var client = webApplicationFactory.CreateClient();
             var result = await client.GetAsync("http://localhost/api/Values/");
+
+            Assert.True(result.IsSuccessStatusCode);
         }
     }
 }
